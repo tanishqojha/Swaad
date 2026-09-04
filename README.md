@@ -2,10 +2,6 @@
   <img src="assets/banner.svg" alt="Swaad banner" width="100%" />
 </p>
 
-<p align="center">
-  <img src="assets/swaad-logo.svg" alt="Swaad logo" height="48" />
-</p>
-
 <h1 align="center">Swaad</h1>
 
 <p align="center">
