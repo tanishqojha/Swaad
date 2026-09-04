@@ -9,7 +9,7 @@
     "android": {
       "package": "com.swaad.app",
       "adaptiveIcon": {
-        "backgroundColor": "#F6F1E1",
+        "backgroundColor": "#FFFFFF",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"

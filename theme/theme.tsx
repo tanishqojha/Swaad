@@ -1,104 +1,111 @@
 /**
  * Swaad design tokens — the single source of truth for colour, type, spacing,
- * radius, elevation and motion. Transcribed directly from Design.md sections
- * 2-6. Per Rules.md #7 no component may hardcode a hex, size, or radius; if a
- * value is missing here it needs to be added to Design.md first, not invented
- * at the call site.
+ * radius, elevation and motion. Sourced from the "Warm Culinary Artisan"
+ * design system extracted from the Stitch project (Design.md), which is now
+ * canonical in place of the earlier Masala Maroon system. Per Rules.md #7 no
+ * component may hardcode a hex, size, or radius; if a value is missing here
+ * it needs to be added to Design.md first, not invented at the call site.
  */
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useColorScheme } from 'react-native';
 
 /* ── Colour (Design.md §2) ─────────────────────────────────────────────── */
 
 const palette = {
-  masalaMaroon: '#A63D2A',
-  masalaMaroonBright: '#C9573F',
-  masalaMaroonPressed: '#7E2E20',
-  maroonTintSurface: '#F3E1DB',
+  panerGreen: '#4C8B2B',
+  panerGreenBright: '#6BBE45',
+  panerGreenPressed: '#3C6E22',
+  greenTintSurface: '#EAF3E3',
 
-  turmericGold: '#D6A419',
-  turmericGoldDim: '#8C6D14',
-  curryLeafGreen: '#4B7340',
-  curryLeafGreenDark: '#6C9A5C',
+  turmericGold: '#F2B705',
 
-  canvasIvory: '#F6F1E1',
-  thaliSurface: '#EFE7D2',
-  deeperSurface: '#E6DBBE',
-  divider: '#DDD0AE',
+  canvasWhite: '#FFFFFF',
+  surfaceCreamLight: '#FAF6EC',
+  surfaceCreamCard: '#F4EFE1',
+  divider: '#E7E0CF',
 
-  darkCanvas: '#1C1512',
-  darkSurface1: '#26201B',
-  darkSurface2: '#312923',
-  darkDivider: '#3E342B',
+  darkCanvas: '#14140F',
+  darkSurface: '#1E1E18',
+  darkSurfaceCard: '#26261E',
+  darkDivider: '#33332A',
 
-  textPrimaryLight: '#2B2118',
-  textSecondaryLight: '#74695A',
-  textTertiaryLight: '#A79C89',
-  textPrimaryDark: '#F1E9D8',
-  textSecondaryDark: '#B3A891',
-  textTertiaryDark: '#7C7160',
+  textPrimaryLight: '#2A2A1F',
+  textSecondaryLight: '#6C6655',
+  textTertiaryLight: '#9C9684',
+  textPrimaryDark: '#F1EEE0',
+  textSecondaryDark: '#B8B3A0',
+  textTertiaryDark: '#7C7767',
 
-  errorLight: '#B23A2E',
-  errorDark: '#D2604F',
-  warningLight: '#B8860B',
-  warningDark: '#D6A419',
-  infoTintLight: '#F3E1DB',
-  infoTintDark: '#332019',
+  breadTan: '#D8B271',
+  soupOrange: '#E07A2F',
+  berryRed: '#B0324B',
+
+  errorLight: '#BA1A1A',
+  errorDark: '#FFB4AB',
 } as const;
 
 const lightColors = {
-  canvas: palette.canvasIvory,
-  surface: palette.thaliSurface,
-  surfaceDeep: palette.deeperSurface,
+  canvas: palette.canvasWhite,
+  surface: palette.surfaceCreamCard,
+  surfaceDeep: palette.surfaceCreamLight,
   divider: palette.divider,
 
   textPrimary: palette.textPrimaryLight,
   textSecondary: palette.textSecondaryLight,
   textTertiary: palette.textTertiaryLight,
 
-  /** Masala Maroon — the ONLY primary action colour (Design.md §7). */
-  primary: palette.masalaMaroon,
-  primaryPressed: palette.masalaMaroonPressed,
+  /** Panera Green — the ONLY primary action colour (Design.md §7). */
+  primary: palette.panerGreen,
+  primaryPressed: palette.panerGreenPressed,
   /** Wash behind selected chips and active filters. */
-  primaryTint: palette.maroonTintSurface,
+  primaryTint: palette.greenTintSurface,
   /** Text/icon colour sitting on top of `primary`. */
-  onPrimary: palette.canvasIvory,
+  onPrimary: palette.canvasWhite,
 
   /** Turmeric Gold — match indicator and budget-fit confirmation ONLY. */
   gold: palette.turmericGold,
-  /** Unfilled portion of the match ring track. */
-  goldDim: palette.turmericGoldDim,
-  /** Curry Leaf Green — "fully makeable now" ONLY. */
-  curryLeaf: palette.curryLeafGreen,
+  goldDim: palette.breadTan,
+  /** "Fully makeable now" ONLY. */
+  curryLeaf: palette.panerGreen,
 
-  success: palette.curryLeafGreen,
+  success: palette.panerGreen,
   error: palette.errorLight,
-  warning: palette.warningLight,
-  infoTint: palette.infoTintLight,
+  warning: palette.turmericGold,
+  infoTint: palette.greenTintSurface,
+
+  accentBread: palette.breadTan,
+  accentSoup: palette.soupOrange,
+  accentBerry: palette.berryRed,
 };
 
 const darkColors: Colors = {
   canvas: palette.darkCanvas,
-  surface: palette.darkSurface1,
-  surfaceDeep: palette.darkSurface2,
+  surface: palette.darkSurface,
+  surfaceDeep: palette.darkSurfaceCard,
   divider: palette.darkDivider,
 
   textPrimary: palette.textPrimaryDark,
   textSecondary: palette.textSecondaryDark,
   textTertiary: palette.textTertiaryDark,
 
-  primary: palette.masalaMaroonBright,
-  primaryPressed: palette.masalaMaroonPressed,
-  primaryTint: palette.infoTintDark,
+  primary: palette.panerGreenBright,
+  primaryPressed: palette.panerGreenPressed,
+  primaryTint: palette.darkSurfaceCard,
   onPrimary: palette.darkCanvas,
 
   gold: palette.turmericGold,
-  goldDim: palette.turmericGoldDim,
-  curryLeaf: palette.curryLeafGreenDark,
+  goldDim: palette.breadTan,
+  curryLeaf: palette.panerGreenBright,
 
-  success: palette.curryLeafGreenDark,
+  success: palette.panerGreenBright,
   error: palette.errorDark,
-  warning: palette.warningDark,
-  infoTint: palette.infoTintDark,
+  warning: palette.turmericGold,
+  infoTint: palette.darkSurfaceCard,
+
+  accentBread: palette.breadTan,
+  accentSoup: palette.soupOrange,
+  accentBerry: palette.berryRed,
 };
 
 /** Every role carries a plain `string`; the two schemes share the same keys. */
@@ -112,17 +119,17 @@ export const colors: Record<'light' | 'dark', Colors> = {
 /* ── Typography (Design.md §3) ─────────────────────────────────────────── */
 
 /**
- * Font family names as registered with expo-font in App.tsx. Fraunces is for
- * recipe names and headlines only; everything dense (chips, prices, lists) is
- * Work Sans (Design.md §7).
+ * Font family names as registered with expo-font in App.tsx. Epilogue is
+ * for headlines and display type; Inter is for everything dense (chips,
+ * prices, lists, body copy).
  */
 export const fonts = {
-  displayMedium: 'Fraunces_500Medium',
-  displaySemiBold: 'Fraunces_600SemiBold',
-  bodyRegular: 'WorkSans_400Regular',
-  bodyMedium: 'WorkSans_500Medium',
-  bodySemiBold: 'WorkSans_600SemiBold',
-  bodyBold: 'WorkSans_700Bold',
+  displayMedium: 'Epilogue_600SemiBold',
+  displaySemiBold: 'Epilogue_700Bold',
+  bodyRegular: 'Inter_400Regular',
+  bodyMedium: 'Inter_500Medium',
+  bodySemiBold: 'Inter_600SemiBold',
+  bodyBold: 'Inter_700Bold',
 } as const;
 
 type TypeStyle = {
@@ -140,7 +147,7 @@ const type = (fontFamily: string, fontSize: number, ratio: number): TypeStyle =>
 
 export const typography = {
   /** "What's in your kitchen?" */
-  screenTitle: type(fonts.displaySemiBold, 30, 1.2),
+  screenTitle: type(fonts.displaySemiBold, 32, 1.25),
   /** Recipe result card, detail header. */
   recipeNameCard: type(fonts.displaySemiBold, 19, 1.25),
   /** Saved/favourites list. */
@@ -178,16 +185,16 @@ export const spacing = {
   xxxl: 32,
   huge: 40,
   /** Screen content inset, horizontal. */
-  screenInset: 16,
+  screenInset: 20,
   /** Section top margin. */
   sectionTop: 24,
 } as const;
 
 export const radii = {
   /** Chips and inputs — read as "tokens", not "actions". */
-  chip: 10,
+  chip: 9999,
   /** Buttons and meal-type tiles. */
-  button: 14,
+  button: 9999,
   /** Cards. */
   card: 16,
   /** Match ring, checkboxes, budget handle. */
@@ -229,14 +236,14 @@ export const elevation = {
     elevation: 0,
   },
   raised: {
-    shadowColor: '#3C1E0A',
+    shadowColor: '#3C2A10',
     shadowOpacity: 0.06,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
     elevation: 2,
   },
   sheet: {
-    shadowColor: '#1E0F05',
+    shadowColor: '#1E1405',
     shadowOpacity: 0.14,
     shadowRadius: 20,
     shadowOffset: { width: 0, height: -4 },
@@ -245,7 +252,7 @@ export const elevation = {
 } as const;
 
 /** Dim behind sheets. */
-export const modalOverlay = 'rgba(20,12,5,0.4)';
+export const modalOverlay = 'rgba(20,18,5,0.4)';
 
 /** Bottom tab bar sits at 96% opacity over the canvas (Design.md §4). */
 export const tabBarOpacity = 0.96;
@@ -281,11 +288,55 @@ export type Theme = {
 };
 
 /**
- * Follows the system colour scheme. Design.md specifies dark mode fully, so the
- * tokens carry both; there is deliberately no in-app toggle (not in the PRD).
+ * Light/dark/system override, added at the user's explicit request (on top
+ * of the original "follow the system, no in-app toggle" design). Persisted
+ * so the choice survives a restart; `ThemeModeProvider` wraps the app in
+ * App.tsx and every `useTheme()` call below reads through it.
+ */
+export type ThemeModePreference = 'system' | 'light' | 'dark';
+const THEME_MODE_KEY = 'swaad.themeMode';
+
+type ThemeModeContextValue = {
+  preference: ThemeModePreference;
+  setPreference: (next: ThemeModePreference) => void;
+};
+
+const ThemeModeContext = createContext<ThemeModeContextValue | null>(null);
+
+export function ThemeModeProvider({ children }: { children: ReactNode }) {
+  const [preference, setPreferenceState] = useState<ThemeModePreference>('system');
+
+  useEffect(() => {
+    AsyncStorage.getItem(THEME_MODE_KEY).then((stored) => {
+      if (stored === 'light' || stored === 'dark' || stored === 'system') setPreferenceState(stored);
+    });
+  }, []);
+
+  function setPreference(next: ThemeModePreference) {
+    setPreferenceState(next);
+    AsyncStorage.setItem(THEME_MODE_KEY, next);
+  }
+
+  return <ThemeModeContext.Provider value={{ preference, setPreference }}>{children}</ThemeModeContext.Provider>;
+}
+
+/** Reads/sets the persisted override — the segmented control in ProfileScreen calls this directly. */
+export function useThemeModePreference(): ThemeModeContextValue {
+  const ctx = useContext(ThemeModeContext);
+  if (!ctx) throw new Error('useThemeModePreference must be used within ThemeModeProvider');
+  return ctx;
+}
+
+/**
+ * Resolves to the system colour scheme unless the user has explicitly
+ * overridden it via the Profile screen toggle. Design.md specifies dark mode
+ * fully, so the tokens always carry both.
  */
 export function useTheme(): Theme {
-  const scheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+  const systemScheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+  const override = useContext(ThemeModeContext)?.preference ?? 'system';
+  const scheme = override === 'system' ? systemScheme : override;
+
   return {
     scheme,
     colors: colors[scheme],

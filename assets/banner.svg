@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360">
+  <defs>
+    <radialGradient id="glow" cx="18%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#EAF3E3" />
+      <stop offset="100%" stop-color="#FAF6EC" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="360" fill="url(#glow)" />
+
+  <circle cx="1080" cy="60" r="5" fill="#F2B705" />
+  <circle cx="1120" cy="110" r="3" fill="#4C8B2B" />
+  <circle cx="1050" cy="150" r="4" fill="#D8B271" />
+  <circle cx="90" cy="300" r="4" fill="#4C8B2B" />
+  <circle cx="140" cy="270" r="3" fill="#F2B705" />
+
+  <g transform="translate(120, 95)">
+    <circle cx="46" cy="46" r="44" fill="#4C8B2B" />
+    <path d="M46 18C36 26 32 38 36 48C38 52 44 56 50 54C58 50 60 40 56 30C52 24 46 18 46 18Z" fill="#FAF6EC" />
+    <path d="M42 42C44 36 48 32 54 30" stroke="#4C8B2B" stroke-width="4" stroke-linecap="round" />
+    <circle cx="60" cy="24" r="6" fill="#F2B705" />
+  </g>
+
+  <text x="250" y="150" font-family="Georgia, 'Segoe UI', sans-serif" font-size="88" font-weight="700" fill="#2A2A1F" letter-spacing="-1">Swaad</text>
+
+  <text x="252" y="200" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="27" font-weight="500" fill="#4C8B2B" letter-spacing="0.5">
+    Cook what you have. Spend what you plan.
+  </text>
+
+  <text x="252" y="245" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" fill="#6C6655">
+    An Android app that turns your kitchen, your budget and your appetite into tonight's dinner.
+  </text>
+
+  <rect x="252" y="270" width="118" height="34" rx="17" fill="#EAF3E3" />
+  <text x="272" y="292" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#4C8B2B">React Native</text>
+
+  <rect x="382" y="270" width="94" height="34" rx="17" fill="#EAF3E3" />
+  <text x="402" y="292" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#4C8B2B">Expo</text>
+
+  <rect x="488" y="270" width="112" height="34" rx="17" fill="#EAF3E3" />
+  <text x="508" y="292" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#4C8B2B">Supabase</text>
+</svg>

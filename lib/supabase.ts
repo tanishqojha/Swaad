@@ -1,4 +1,5 @@
 import 'react-native-url-polyfill/auto';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 
 const url = process.env.EXPO_PUBLIC_SUPABASE_URL;
@@ -11,10 +12,11 @@ if (!url || !anonKey) {
 }
 
 /**
- * Read-only reference-data client. No accounts in v1 (PRD §3 non-goal), so
- * session persistence is off — every request is anonymous and every table is
- * public-read with no write policy (see supabase/migrations/0001_init.sql).
+ * Reference-data tables stay public-read with no write policy (see
+ * supabase/migrations/0001_init.sql). Accounts were added on top for
+ * sign-in-gated favorites and reviews (supabase/migrations/0004_auth.sql),
+ * so sessions now persist in AsyncStorage and auto-refresh.
  */
 export const supabase = createClient(url, anonKey, {
-  auth: { persistSession: false, autoRefreshToken: false },
+  auth: { storage: AsyncStorage, persistSession: true, autoRefreshToken: true, detectSessionInUrl: false },
 });
