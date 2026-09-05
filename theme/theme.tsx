@@ -148,6 +148,8 @@ const type = (fontFamily: string, fontSize: number, ratio: number): TypeStyle =>
 export const typography = {
   /** "What's in your kitchen?" */
   screenTitle: type(fonts.displaySemiBold, 32, 1.25),
+  /** Landing hero and secondary screen headlines (Design.md headline-lg, 26/34). */
+  headlineLg: type(fonts.displaySemiBold, 26, 1.3),
   /** Recipe result card, detail header. */
   recipeNameCard: type(fonts.displaySemiBold, 19, 1.25),
   /** Saved/favourites list. */

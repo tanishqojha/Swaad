@@ -60,22 +60,22 @@ export function RecipeDetailScreen({ route, navigation }: Props) {
         {ranked && <MatchRing matchedCount={ranked.matchedCount} totalCount={ranked.totalCount} />}
       </View>
 
-      <View style={{ flexDirection: 'row', marginTop: spacing.lg }}>
+      <View style={{ flexDirection: 'row', marginTop: spacing.lg, gap: spacing.sm }}>
         <Pressable
           onPress={onToggleSave}
-          style={[styles.saveRow, { flex: 1, borderColor: colors.divider, borderWidth: hairline.chipBorder, borderRadius: radii.button, marginRight: spacing.sm }]}
+          style={[styles.saveRow, { flex: 1, borderColor: colors.divider, borderWidth: hairline.chipBorder, borderRadius: radii.button }]}
         >
           <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={18} color={colors.primary} />
-          <Text style={[typography.button, { color: colors.primary, marginLeft: spacing.sm }]}>
-            {saved ? 'Saved' : 'Save this dish'}
+          <Text numberOfLines={1} style={[typography.button, { color: colors.primary, marginLeft: spacing.sm, flexShrink: 1 }]}>
+            {saved ? 'Saved' : 'Save'}
           </Text>
         </Pressable>
         <Pressable
           onPress={() => navigation.navigate('RecipeReviews', { recipe })}
-          style={[styles.saveRow, { flex: 1, borderColor: colors.divider, borderWidth: hairline.chipBorder, borderRadius: radii.button, marginRight: spacing.sm }]}
+          style={[styles.saveRow, { flex: 1, borderColor: colors.divider, borderWidth: hairline.chipBorder, borderRadius: radii.button }]}
         >
           <Ionicons name="chatbubble-ellipses-outline" size={18} color={colors.primary} />
-          <Text style={[typography.button, { color: colors.primary, marginLeft: spacing.sm }]}>Reviews</Text>
+          <Text numberOfLines={1} style={[typography.button, { color: colors.primary, marginLeft: spacing.sm, flexShrink: 1 }]}>Reviews</Text>
         </Pressable>
         <Pressable
           onPress={onShare}
@@ -141,6 +141,6 @@ export function RecipeDetailScreen({ route, navigation }: Props) {
 const styles = StyleSheet.create({
   hero: { width: '100%', height: 220 },
   header: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' },
-  saveRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 44 },
+  saveRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 44, paddingHorizontal: 12 },
   ingredientRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 10 },
 });

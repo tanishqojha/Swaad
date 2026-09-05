@@ -20,7 +20,7 @@ export function MealTypeTile({ label, icon, selected, onPress }: Props) {
       style={[
         styles.root,
         {
-          width: touchTarget.mealTile,
+          width: '100%',
           height: touchTarget.mealTile,
           borderRadius: radii.card,
           borderWidth: hairline.chipBorder,

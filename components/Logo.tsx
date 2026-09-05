@@ -9,10 +9,13 @@ import { useTheme } from '@/theme/theme';
  */
 export function Logo({ height = 28 }: { height?: number }) {
   const { colors } = useTheme();
-  const width = (height / 48) * 160;
+  // viewBox trimmed to the wordmark's real bounds (the source asset carried
+  // ~28px of dead space on the right, which made a centred logo read as
+  // shifted left).
+  const width = (height / 48) * 132;
 
   return (
-    <Svg width={width} height={height} viewBox="0 0 160 48" fill="none">
+    <Svg width={width} height={height} viewBox="0 0 132 48" fill="none">
       <Circle cx={20} cy={24} r={15} fill={colors.primary} />
       <Path d="M20 14C15 18 13 24 15 29C16 31 19 33 22 32C26 30 27 25 25 20C23 17 20 14 20 14Z" fill={colors.canvas} />
       <Path d="M18 26C19 23 21 21 24 20" stroke={colors.primary} strokeWidth={2} strokeLinecap="round" />

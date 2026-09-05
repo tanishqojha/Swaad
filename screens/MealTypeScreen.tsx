@@ -33,15 +33,16 @@ export function MealTypeScreen({ navigation, route }: Props) {
     <View style={{ flex: 1, backgroundColor: colors.canvas }}>
       <StepProgress step={3} total={4} label="What's the occasion?" />
       <View style={{ padding: spacing.screenInset }}>
-        <View style={styles.grid}>
+        <View style={[styles.grid, { marginHorizontal: -spacing.xs }]}>
           {MEAL_TYPES.map((meal) => (
-            <MealTypeTile
-              key={meal.value}
-              label={meal.label}
-              icon={meal.icon}
-              selected={selected === meal.value}
-              onPress={() => setSelected(meal.value)}
-            />
+            <View key={meal.value} style={[styles.cell, { padding: spacing.xs }]}>
+              <MealTypeTile
+                label={meal.label}
+                icon={meal.icon}
+                selected={selected === meal.value}
+                onPress={() => setSelected(meal.value)}
+              />
+            </View>
           ))}
         </View>
       </View>
@@ -59,5 +60,9 @@ export function MealTypeScreen({ navigation, route }: Props) {
 }
 
 const styles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
+  grid: { flexDirection: 'row', flexWrap: 'wrap' },
+  // Fixed 1/3 columns with an even gutter at any screen width — the old
+  // space-between layout left uneven gaps on wide phones and could crowd
+  // the fixed-width tiles into each other on narrow ones.
+  cell: { width: '33.333%' },
 });
